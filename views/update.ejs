@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  <form action="/update" method="post" enctype="application/x-www-form-urlencoded">
+    <hr>
+    <div>ID : <%= data._id %></div>
+    <div>name : <%= data.name %></div>
+    <div>number : <%= data.price %></div>
+    <hr>
+    <!--input voi id để truyền lên id mà ko cho người dùng sửa
+    nên đặt là hidden-->
+
+    <input name="id" value="<%= data._id %>" hidden>
+    <div>Name : <input name="name" value=" <%= data.name %>"></div>
+    <div>Number : <input name="number" value="<%= data.price %>"></div>
+
+    <button type="submit">Update</button>
+
+  </form>
+
+  </body>
+</html>
