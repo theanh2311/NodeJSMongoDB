@@ -16,12 +16,7 @@
   </style>
   <body>
 
-  <form method="post" action="/add" enctype="application/x-www-form-urlencoded">
-    <input name="link"   placeholder="Link Anh">
-    <input name="description" placeholder="Noi Dung">
-    <input name="date" placeholder="Ngay thang">
-    <button type="submit">Them</button>
-  </form>
+
   <% for(var i = 0;i < data.length; i++){ %>
 
     <%var url = data[i].link%>

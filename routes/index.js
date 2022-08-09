@@ -67,6 +67,9 @@ router.get('/updateForm/', function (req, res) {
     })
 
 })
+router.get('/insert',function (req, res){
+    res.render('insert')
+})
 router.post('/update', async function (req, res) {
     const id =req.body.id;
     var link     = req.body.link;
