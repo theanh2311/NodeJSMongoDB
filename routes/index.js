@@ -41,7 +41,7 @@ router.post('/add' , async  function (req,res) {
 })
 
 router.get('/getUser',function (req,res){
-    const prdList = mongoose.model('Products',);
+    const prdList = mongoose.model('Products',PRODUCT);
     prdList.find({},function (error, result){
         res.send(result)
     })
