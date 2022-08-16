@@ -15,10 +15,15 @@
     }
   </style>
   <body>
+<!--
+<form method="post" action="find" enctype="application/x-www-form-urlencoded">
+  <input name="idd" id="idd">
+  <button type="submit">Tim</button>
+</form>-->
 
 
+<!--
   <% for(var i = 0;i < data.length; i++){ %>
-
     <%var url = data[i].link%>
       <div class="item" >
       <img src="<%=url%>" width="1000px" height="600px"/>
@@ -27,8 +32,17 @@
     <div>ngay : <%= data[i].date %></div>
     <a href="/delete/?id=<%= data[i]._id %>">Delete</a>
     <a href="/updateForm/?id=<%= data[i]._id %>">Update</a>
+<% } %>
+-->
+<h1>Trang web co <%= data.length%> bai viet </h1>
+<form method="get" action="/insert" enctype="application/x-www-form-urlencoded">
+    <button type="submit">Them</button>
+</form>
+<form method="get" action="/view" enctype="application/x-www-form-urlencoded">
+    <button type="submit">Xem</button>
+</form>
+</form>
 
-  <% } %>
       </div>
   </body>
 </html>
