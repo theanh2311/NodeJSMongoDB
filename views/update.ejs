@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style>
+    body{
+    background-image: url("https://images-cdn.welcomesoftware.com/Zz0zZTliMjQ4MzhlNGExMWViYmJiMjFiZTI2ZWNmN2MzZA==");
+
+    }
+    .btn{
+      border-radius: 15px;
+      background-color: aquamarine;
+    }
+</style>
+  </head>
+  <body>
+
+  <form action="/update" method="post" enctype="application/x-www-form-urlencoded">
+    <hr>
+    <div>ID : <%= data._id %></div>
+    <div>Tiêu Đề : <%= data.title %></div>
+    <div>Nội Dung : <%= data.content %></div>
+    <hr>
+    <!--input voi id để truyền lên id mà ko cho người dùng sửa
+    nên đặt là hidden-->
+
+    <input name="id" value="<%= data._id %>" hidden>
+    <div>Tiêu Đề : <input name="title" value=" <%= data.title %>"></div>
+    <div>Nội Dung : <input name="content" value="<%= data.content %>"></div>
+    <button class="btn" type="submit">Update</button>
+
+  </form>
+  </body>
+</html>

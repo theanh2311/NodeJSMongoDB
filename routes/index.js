@@ -7,61 +7,26 @@ const {Schema} = require("mongoose");
 const { check, validationResult } = require('express-validator');
 const e = require("express");
 
-const uri = "mongodb+srv://user:user@cluster0.flsq9.mongodb.net/Demo6?retryWrites=true&w=majority"
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-})
+const uri = "mongodb+srv://admin:admin@cluster0.owchowq.mongodb.net/NTA2KDatabase?retryWrites=true&w=majority"
 
-var upload = multer({ storage: storage })
+
+
 mongoose.connect(uri).catch(err => console.log('co loi xay ra'));
 
 //dinh nghia schema (kieu du lieu) cua model products
-const IMAGE = mongoose.model('wallpapers',new Schema({
+const notes = mongoose.model('notes',new Schema({
   title:String,
-    content:String,
-  post:String,
-   link:String
+    content:String
 }));
-app.post("/uploadphoto",upload.single('myImage'),(req,res)=>{
-    var img = fs.readFileSync(req.file.path);
-    var encode_img = img.toString('base64');
-    var final_img = {
-        contentType:req.file.mimetype,
-        image:new Buffer(encode_img,'base64')
-    };
-    IMAGE.create(final_img,function(err,result){
-        if(err){
-            res.end("loi")
-        }else{
-            console.log(result.img.Buffer);
-            console.log("Saved To database");
-            res.contentType(final_img.contentType);
-            res.send(final_img.image);
-        }
-    })
-})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-IMAGE.find({},function (error, result){
+notes.find({},function (error, result){
     if (error) throw error;
     console.log(result.length)
      res.render('index',{title:'Express',data:result})
    // res.send(result);
 })
-});
-router.get('/view', function(req, res, next) {
-    IMAGE.find({},function (error, result){
-        if (error) throw error;
-        console.log(result.length)
-        res.render('view',{title:'Express',data:result})
-        // res.send(result);
-    })
 });
 
 
@@ -69,23 +34,18 @@ router.post('/add'  ,async  function (req,res) {
 //lay cac tham so
   const  title = req.body.title;
   const  content = req.body.content;
-  const post = req.body.post;
-  const link = req.body.link
-
-      const image = new IMAGE({
+      const note = new notes({
           title: title,
-          content: content,
-          post: post,
-          link:link
+          content: content
       })
-      await image.save();
+      await note.save();
       res.redirect('/')
 
 })
 
-router.get('/getImage',function (req,res){
-    const imgList = mongoose.model('wallpapers');
-    imgList.find({},function (error, result){
+router.get('/getNotes',function (req,res){
+    const noteList = mongoose.model('notes');
+    noteList.find({},function (error, result){
         res.send(result)
     })
 
@@ -93,7 +53,7 @@ router.get('/getImage',function (req,res){
 
 router.get('/delete',async  function (req,res){
     const id = req.query.id;
-   IMAGE.deleteOne({_id:id},function (error){
+   notes.deleteOne({_id:id},function (error){
        if (error) throw error;
    })
     res.redirect('/')
@@ -102,7 +62,7 @@ router.get('/delete',async  function (req,res){
 router.get('/updateForm/', function (req, res) {
 
     const id = req.query.id;
-    IMAGE.findOne({_id: id}, function (error, result) {
+    notes.findOne({_id: id}, function (error, result) {
         res.render('update', {title: 'Update', data: result})
     })
 
@@ -110,20 +70,17 @@ router.get('/updateForm/', function (req, res) {
 router.get('/insert',function (req, res){
     res.render('insert')
 })
-/*router.get('/update', async function (req, res) {
+
+router.post('/update', async function (req, res) {
     const id =req.body.id;
-    var link     = req.body.link;
-    var  description = req.body.description;
-    var date = req.body.date;
-
-
-
-    await IMAGE.updateOne({_id: id}, {
-        link   : link,
-        description: description,
-        date:date
+    const  title = req.body.title;
+    const  content = req.body.content;
+    await notes.updateOne({_id: id}, {
+        title:title,
+        content:content
     }, null)
 
     res.redirect('/')
-})*/
+})
+
 module.exports = router;
